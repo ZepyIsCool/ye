@@ -4764,11 +4764,11 @@ aimbot:Element("Dropdown", "origin", {options = {"character", "camera"}})
 aimbot:Element("Toggle", "silent aim") 
 aimbot:Element("Dropdown", "automatic fire", {options = {"off", "standard", "hitpart"}}) 
 aimbot:Element("Toggle", "automatic penetration") 
-aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "roll", "front track", "animation"}}) 
+aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "front track", "roll", "animation"}}) 
 aimbot:Element("Toggle", "delay shot") 
 aimbot:Element("Toggle", "force hit")
 aimbot:Element("Dropdown", "prediction", {options = {"off", "cframe", "velocity"}}) 
-aimbot:Element("Toggle", "prediction") 
+aimbot:Element("Toggle", "boost prediction") 
 aimbot:Element("Toggle", "teammates") 
 aimbot:Element("Toggle", "auto baim") 
 aimbot:Element("Toggle", "knifebot") 
@@ -4809,7 +4809,6 @@ local antiaim = rage:Sector("angles", "Right")
 antiaim:Element("Toggle", "enabled") 
 antiaim:Element("Dropdown", "yaw base", {options = {"camera", "targets", "spin", "random"}}) 
 antiaim:Element("Slider", "yaw offset", {min = -180, max = 180, default = 0}) 
-antiaim:Element("ToggleKeybind", "reset yaw")
 antiaim:Element("ToggleKeybind", "manual left")
 antiaim:Element("ToggleKeybind", "manual right")
 antiaim:Element("Toggle", "jitter") 
@@ -5755,8 +5754,7 @@ RunService.RenderStepped:Connect(function(step)
 								Animation:Stop()
 							end
 						end     
-					end  
-				end)    
+					end   
                     
 					if Player.Character and Player.Character:FindFirstChild("Humanoid") and not Client.DISABLED and Player.Character:FindFirstChild("Humanoid").Health > 0 and Player.Team ~= "TTT" and not Player.Character:FindFirstChildOfClass("ForceField") and GetDeg(CamCFrame, Player.Character.Head.Position) <= Stats["max fov"].Slider and Player ~= LocalPlayer then 
 						if Player.Team ~= LocalPlayer.Team or values.rage.aimbot.teammates.Toggle and Player:FindFirstChild("Status") and Player.Status.Team.Value ~= LocalPlayer.Status.Team.Value and Player.Status.Alive.Value then 
@@ -6221,18 +6219,6 @@ RunService.RenderStepped:Connect(function(step)
 			if values.rage.angles["yaw base"].Dropdown == "random" then 
 				Angle = Angle + RAD(RANDOM(0, 360)) 
 			end 
-
-			if values.rage.angles["manual right"].Toggle and values.rage.angles["manual right"].Active then
-				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(90)
-			elseif values.rage.angles["reset yaw"].Toggle and values.rage.angles["reset yaw"].Active then
-				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(0)
-			end
-			if values.rage.angles["manual left"].Toggle and values.rage.angles["manual left"].Active then
-				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(-90)
-			elseif values.rage.angles["reset yaw"].Toggle and values.rage.angles["reset yaw"].Active then
-				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(0)
-			end
-
 			local Offset = RAD(-values.rage.angles["yaw offset"].Slider - (values.rage.angles.jitter.Toggle and Jitter and values.rage.angles["jitter offset"].Slider or 0)) 
 			local CFramePos = CF(Root.Position) * CFAngles(0, Angle + Offset, 0) 
 			if values.rage.angles["yaw base"].Dropdown == "targets" then 
@@ -6252,6 +6238,13 @@ RunService.RenderStepped:Connect(function(step)
 					CFramePos = CF(Root.Position, part.Position) * CFAngles(0, Offset, 0) 
 				end 
 			end 
+
+			if values.rage.angles["manual right"].Toggle and values.rage.angles["manual right"].Active then
+				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(90)
+			end
+			if values.rage.angles["manual left"].Toggle and values.rage.angles["manual left"].Active then
+				Angle = -ATAN2(CamLook.Z, CamLook.X) + RAD(-90) + RAD(-90)
+			end
 
 			Root.CFrame = YROTATION(CFramePos) 
 			if values.rage.angles["body roll"].Dropdown == "180" then 
@@ -6604,7 +6597,7 @@ mt.__namecall = function(self, ...)
 				end
 			end)()
 		end
-		if (values.rage.aimbot["prediction"].Toggle and RageTarget ~= nil) then 
+		if (values.rage.aimbot["boost prediction"].Toggle and RageTarget ~= nil) then 
 			coroutine.wrap(function() 
 				if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then 
 					local hrp = RageTarget.Parent.HumanoidRootPart.Position 
