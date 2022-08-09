@@ -164,7 +164,7 @@ function library:New(name)
 
     Menu3.Name = "Menu3" 
 	Menu3.Parent = Ova 
-	Menu3.BackgroundColor3 = COL3RGB(150, 150, 150) 
+	Menu3.BackgroundColor3 = COL3RGB(70, 70, 70) 
     Menu3.BackgroundTransparency = 0.5
 	Menu3.Position = UDIM2(0.5, -509, 0.5, -308) 
 	Menu3.Size = UDIM2(0, 856, 0, 530) 
@@ -2070,8 +2070,7 @@ function library:New(name)
 						Frame.BorderSizePixel = 0 
 						Frame.Size = UDIM2(0.5, 0, 1, 0) 
 
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, COL3RGB(153, 22, 65)), ColorSequenceKeypoint.new(1, COL3RGB(135, 25, 255))} 
-						UIGradient.Rotation = 90 
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, COL3RGB(121, 0, 78)), ColorSequenceKeypoint.new(1, COL3RGB(122, 6, 255))} 
 						UIGradient.Parent = Frame 
 
 						Value.Name = "Value" 
