@@ -234,32 +234,108 @@ function library:New(name)
 		end 
 	end) 
 
+	local Watermark = Instance.new("ScreenGui")
+	local watermark = Instance.new("Frame")
+	local UIGaay = Instance.new("UIGradient")
+	local monolith = Instance.new("ImageLabel")
+	local line_1 = Instance.new("Frame")
+	local player = Instance.new("TextLabel")
+
+	Watermark.Name = "Watermark"
+	Watermark.Parent = game.CoreGui
+	Watermark.Enabled = false
+
+		watermark.Name = "watermark"
+		watermark.Parent = Watermark
+		watermark.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		watermark.BackgroundTransparency = 0.1
+		watermark.BorderColor3 = Color3.fromRGB(23, 23, 23)
+		watermark.Position = UDim2.new(0.79, 0, 0, -30)
+		watermark.Size = UDim2.new(0, 170, 0, 26)
+
+			UIGaay.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(15, 15, 15)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(5, 5, 5))}
+			UIGaay.Rotation = 90
+			UIGaay.Parent = watermark
+
+			monolith.Name = "monolith"
+			monolith.Parent = watermark
+			monolith.BackgroundTransparency = 1
+			monolith.Position = UDim2.new(0, 1, 0, 0)
+			monolith.Size = UDim2.new(0, 26, 0, 26)
+			monolith.Image = "rbxassetid://10455332382"
+
+			line_1.Name = "line_1"
+			line_1.Parent = watermark
+			line_1.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			line_1.BackgroundTransparency = 0.5
+			line_1.BorderSizePixel = 0
+			line_1.Position = UDim2.new(0, 81, 0, 0)
+			line_1.Size = UDim2.new(0, 1, 0, 26)
+
+			player.Name = "player"
+			player.Parent = watermark
+			player.BackgroundTransparency = 1
+			player.Position = UDim2.new(0, 28, 0, 0)
+			player.Size = UDim2.new(0, 120, 0, 26)
+			player.Font = Enum.Font.GothamSemibold
+			player.Text = "monoblox"
+			player.TextColor3 = Color3.fromRGB(255, 255, 255)
+			player.TextSize = 12
+			player.TextScaled = true
+
+	local function POWDOGC_fake_script()
+		local script = Instance.new('LocalScript', watermark)
+
+		local gui = script.Parent
+
+		gui.Draggable = true
+		gui.Active = true
+	end
+
+	coroutine.wrap(POWDOGC_fake_script)()
+
+	local function IPHCOC_fake_script()
+		local script = Instance.new('LocalScript', player)
+
+		local plr = game.Players.LocalPlayer
+
+		script.Parent.Text = ""..plr.Name..""
+	end
+
+	coroutine.wrap(IPHCOC_fake_script)()
+
 	local KeybindList = INST("ScreenGui") 
 	do 
 		local TextLabel = INST("TextLabel") 
 		local Frame = INST("Frame") 
 		local UIListLayout = INST("UIListLayout") 
+		local UICornerKeybind = Instance.new("UICorner")
 
 		KeybindList.Name = "KeybindList" 
 		KeybindList.ZIndexBehavior = Enum.ZIndexBehavior.Global 
 		KeybindList.Enabled = false 
 
 		TextLabel.Parent = KeybindList 
-		TextLabel.BackgroundColor3 = COL3RGB(1, 1, 1) 
+		TextLabel.BackgroundColor3 = COL3RGB(10, 10, 10) 
+		TextLabel.BackgroundTransparency = 1
 		TextLabel.BorderColor3 = COL3RGB(135, 25, 255) 
+		TextLabel.BorderSizePixel = 0
 		TextLabel.Position = UDIM2(0, 1, 0.300000012, 0) 
 		TextLabel.Size = UDIM2(0, 155, 0, 24) 
 		TextLabel.ZIndex = 2 
 		TextLabel.Font = Enum.Font.SourceSansSemibold 
-		TextLabel.Text = "keybinds" 
+		TextLabel.Text = "" 
 		TextLabel.TextColor3 = COL3RGB(255, 255, 255) 
 		TextLabel.TextSize = 14.000 
+
+		UICornerKeybind.CornerRadius = UDim.new(0, 6)
+		UICornerKeybind.Parent = TextLabel
 
 		Frame.Parent = TextLabel 
 		Frame.BackgroundColor3 = COL3RGB(255, 255, 255) 
 		Frame.BackgroundTransparency = 1.000 
-		Frame.Position = UDIM2(0, 0, 1, 1) 
-		Frame.Size = UDIM2(1, 0, 1, 0) 
+		Frame.Position = UDIM2(0, 1, 0.300000012, 0) 
+		Frame.Size = UDIM2(0, 155, 0, 24) 
 
 		UIListLayout.Parent = Frame 
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center 
@@ -271,7 +347,8 @@ function library:New(name)
 	function keybindadd(text) 
 		if not KeybindList.TextLabel.Frame:FindFirstChild(text) then 
 			local TextLabel = INST("TextLabel") 
-			TextLabel.BackgroundColor3 = COL3RGB(1, 1, 1) 
+			TextLabel.BackgroundColor3 = COL3RGB(10, 10, 10) 
+			TextLabel.BackgroundTransparency = 0.5
 			TextLabel.BorderColor3 = COL3RGB(135, 25, 255) 
 			TextLabel.BorderSizePixel = 0 
 			TextLabel.Size = UDIM2(0, 155, 0, 24) 
@@ -294,6 +371,10 @@ function library:New(name)
 	function library:SetKeybindVisible(Joe) 
 		KeybindList.Enabled = Joe 
 	end 
+
+	function library:SetWatermarkVisible(DoggoCute)
+		Watermark.Enabled = DoggoCute
+	end
 
 	library.dragging = false 
 	do 
@@ -352,7 +433,7 @@ function library:New(name)
 	TabButtons.Parent = Menu2 
 	TabButtons.BackgroundColor3 = COL3RGB(1, 1, 1) 
 	TabButtons.BackgroundTransparency = 1
-	TabButtons.Position = UDIM2(TextLabel.Size.X.Scale, TextLabel.Size.X.Offset-50, 0.3, 0) 
+	TabButtons.Position = UDIM2(TextLabel.Size.X.Scale, TextLabel.Size.X.Offset-47, 0.3, 0) 
 	TabButtons.Size = UDIM2(TextLabel.Size.X.Scale, 590-TextLabel.Size.X.Offset, 0, 25) 
 
 	UIListLayout.Parent = TabButtons 
@@ -377,14 +458,21 @@ function library:New(name)
 		values[tabname] = {} 
 
 		local TextButton = INST("TextButton") 
-		TextButton.BackgroundColor3 = COL3RGB(255, 255, 255) 
+		local UIGradient_left_one = Instance.new("UIGradient")
+		TextButton.BackgroundColor3 = COL3RGB(43, 43, 43) 
+		TextButton.BorderColor3 = Color3.new(120, 6, 168)
 		TextButton.BackgroundTransparency = 1
-		TextButton.Size = UDIM2(0, txt:GetTextSize(text, 0, Enum.Font.SourceSansSemibold, Vec2(700,700)).X+64, 1.4, 0) 
+		TextButton.Size = UDIM2(0, 153, 0, 32) 
 		TextButton.Font = Enum.Font.SourceSansSemibold 
 		TextButton.Text = text 
 		TextButton.TextColor3 = COL3RGB(255, 255, 255) 
 		TextButton.TextSize = 30.000 
+		TextButton.TextXAlignment = Enum.TextXAlignment.Left
 		TextButton.Parent = TabButtons 
+
+		UIGradient_left_one.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.78, Color3.fromRGB(3, 3, 3)), ColorSequenceKeypoint.new(1.0, Color3.fromRGB(9, 9, 9))}
+		UIGradient_left_one.Rotation = 0
+		UIGradient_left_one.Parent = TextButton
 
 		local TabGui = INST("ScrollingFrame") 
 		local Left = INST("Frame") 
@@ -396,8 +484,10 @@ function library:New(name)
 		TabGui.Parent = Tabs 
 		TabGui.BackgroundColor3 = COL3RGB(150, 150, 150) 
 		TabGui.BackgroundTransparency = 1.000 
-		TabGui.Size = UDIM2(1.072, 0, 0.8, 0) 
+		TabGui.Size = UDIM2(1, 0, 0.8, 0) 
 		TabGui.Visible = false 
+		TabGui.ZIndex = -2
+
 
 		Left.Name = "Left" 
 		Left.Parent = TabGui 
@@ -424,7 +514,7 @@ function library:New(name)
 		UIListLayout_2.Padding = UDim.new(0, 10) 
 
 		if first then 
-			TextButton.TextColor3 = COL3RGB(255, 255, 255) 
+			TextButton.TextColor3 = Color3.fromRGB(255, 255, 255) 
 			currenttab = text 
 			TabGui.Visible = true 
 			first = false 
@@ -432,15 +522,15 @@ function library:New(name)
 
 		TextButton.MouseButton1Down:Connect(function() 
 			if currenttab ~= text then 
-				for i,v in pairs(TabButtons:GetChildren()) do 
+				for i,v in next, TabButtons:GetChildren() do 
 					if v:IsA("TextButton") then 
-						library:Tween(v, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = COL3RGB(200, 200, 200)}) 
+						library:Tween(v, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}) 
 					end 
 				end 
-				for i,v in pairs(Tabs:GetChildren()) do 
+				for i,v in next, Tabs:GetChildren() do 
 					v.Visible = false 
 				end 
-				library:Tween(TextButton, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = COL3RGB(255, 255, 255)}) 
+				library:Tween(TextButton, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}) 
 				currenttab = text 
 				TabGui.Visible = true 
 			end 
@@ -758,10 +848,10 @@ function library:New(name)
 						end 
 
 						ImageLabel.Parent = Button 
-						ImageLabel.BackgroundColor3 = COL3RGB(255, 255, 255) 
+						ImageLabel.BackgroundColor3 = Color3.fromRGB(111, 222, 255) 
 						ImageLabel.BackgroundTransparency = 1.000 
-						ImageLabel.Position = UDIM2(0, 165, 0, 6) 
-						ImageLabel.Size = UDIM2(0, 6, 0, 4) 
+						ImageLabel.Position = UDim2.new(0, 145, 0, 4) 
+						ImageLabel.Size = UDim2.new(0, 6, 0, 4) 
 						ImageLabel.Image = "http://www.roblox.com/asset/?id=6724771531" 
 
 						TextLabel_3.Parent = Dropdown 
@@ -4685,6 +4775,62 @@ luascripts:Element("Button", "load", {}, function()
 	loadstring(readfile("ovalua\\"..values.luas["lua scripts"].lua.Scroll))() 
 end) 
 
+luascripts:Element("Button", "clantag", nil, function()
+    local Services = setmetatable({
+		LocalPlayer = game:GetService("Players").LocalPlayer,
+	 },{
+		__index = function(self, idx)
+			if game:GetService(idx) then
+				return game:GetService(idx)
+			elseif rawget(self, idx) then
+				return rawget(self, idx)
+			end
+		end
+	 })
+	 
+	 for i, v in next, Services.LocalPlayer.PlayerGui.GUI.Scoreboard:GetChildren() do 
+		if v.Name == "CT" or v.Name == "T" then 
+			for k, x in next, v:GetChildren() do 
+				if x:IsA("Frame") and x:FindFirstChild("player") then 
+					local Tag = x.player 
+					local Player = Services.Players:FindFirstChild(Tag.Text) 
+					Services.RunService.Heartbeat:Connect(function() 
+						if Player and Player.OsPlatform and Player.OsPlatform:find("|") then 
+							Tag.Text = Player.OsPlatform:sub(2, Player.OsPlatform:len()).." "..Player.Name 
+						end
+					end)
+				end
+			end
+			v.ChildAdded:Connect(function(child) 
+				if child:IsA("Frame") and child:FindFirstChild("player") then 
+					local Tag = child.player 
+					local Player  
+					repeat wait() 
+						Player = Services.Players:FindFirstChild(Tag.Text) 
+					until Player ~= "PLAYER" 
+					Services.RunService.Heartbeat:Connect(function() 
+						if Player and Player.OsPlatform and Player.OsPlatform:find("|") then 
+							Tag.Text = Player.OsPlatform:sub(2, Player.OsPlatform:len()).." "..Player.Name
+						end
+					end)
+				end
+			end)
+		end
+	 end
+	 
+	 local CurrentLetter = 0 
+	 local Clantag = "MonoBlox"
+	 
+	 while wait(0.3) do 
+		Services.LocalPlayer.OsPlatform = "|"..Clantag:sub(0, CurrentLetter).." " 
+		if CurrentLetter == Clantag:len() then 
+			wait(1.3) 
+			CurrentLetter = 0 
+		end
+		CurrentLetter = CurrentLetter + 1 
+	 end
+end)
+
 local knife = skins:Sector("knife", "Left") 
 knife:Element("Toggle", "knife changer") 
 knife:Element("Scroll", "model", {options = AllKnives, Amount = 15}) 
@@ -4764,11 +4910,10 @@ aimbot:Element("Dropdown", "origin", {options = {"character", "camera"}})
 aimbot:Element("Toggle", "silent aim") 
 aimbot:Element("Dropdown", "automatic fire", {options = {"off", "standard", "hitpart"}}) 
 aimbot:Element("Toggle", "automatic penetration") 
-aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "front track", "roll", "animation"}}) 
+aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "front track", "angle", "roll", "animation"}}) 
 aimbot:Element("Toggle", "delay shot") 
 aimbot:Element("Toggle", "force hit")
-aimbot:Element("Dropdown", "prediction", {options = {"off", "cframe", "velocity"}}) 
-aimbot:Element("Toggle", "boost prediction") 
+aimbot:Element("Dropdown", "prediction", {options = {"off", "stormy", "shiba", "bad"}}) 
 aimbot:Element("Toggle", "teammates") 
 aimbot:Element("Toggle", "auto baim") 
 aimbot:Element("Toggle", "knifebot") 
@@ -5299,6 +5444,9 @@ configs:Element("Button", "load", {}, function() if values.misc.configs.config.T
 configs:Element("Toggle", "keybind list", nil, function(tbl) 
 	library:SetKeybindVisible(tbl.Toggle) 
 end) 
+configs:Element("Toggle", "watermark", nil, function(tbl)
+	library:SetWatermarkVisible(tbl.Toggle)
+end)
 
 local crosshaireditor = misc:Sector("crosshair editor", "Right") 
 local function UpdateCrosshair() 
@@ -5745,6 +5893,9 @@ RunService.RenderStepped:Connect(function(step)
 						end      
 						if TBLFIND(values.rage.aimbot.resolver.Jumbobox, "front track") then 
                             Player.Character.Head.Neck.C0 = CFrame.new(0,5,-5) * CFAngles(0, 0, 0) 
+                        end 
+						if TBLFIND(values.rage.aimbot.resolver.Jumbobox, "angle") then 
+                            Player.Character.Humanoid.MaxSlopeAngle = 0  
                         end 
 						if TBLFIND(values.rage.aimbot.resolver.Jumbobox, "roll") then      
 							Player.Character.Humanoid.MaxSlopeAngle = 0      
@@ -6572,7 +6723,7 @@ mt.__namecall = function(self, ...)
 		if values.rage.aimbot["prediction"].Dropdown ~= "off" and RageTarget ~= nil then
 			coroutine.wrap(function()
 				if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then
-					if values.rage.aimbot["prediction"].Dropdown == "cframe" then
+					if values.rage.aimbot["prediction"].Dropdown == "stormy" then
 						if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then 
 							local hrp = RageTarget.Parent.HumanoidRootPart.Position 
 							local oldHrp = RageTarget.Parent.HumanoidRootPart.OldPosition.Value 
@@ -6585,35 +6736,36 @@ mt.__namecall = function(self, ...)
 							args[4] = 0 
 							args[12] = args[12] - 500 
 						end
-					else
-						local Velocity = RageTarget.Parent.HumanoidRootPart.Velocity
-						local Direction = Vector3.new(Velocity.X/Velocity.magnitude, 0, Velocity.Z/Velocity.magnitude)
-						if Velocity.magnitude >= 8 then
-							args[2] = args[2] + Direction * (Velocity.magnitude*(Ping/1000) * (Ping > 200 and 1.5 or 2))
+					elseif values.rage.ragebot["prediction"].Dropdown == "shiba" then
+						if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then 
+							local hrp = RageTarget.Parent.HumanoidRootPart.Position
+							local oldHrp = RageTarget.Parent.HumanoidRootPart.OldPosition.Value
+	
+							local vel = (Vector3.new(hrp.X, 0, hrp.Z) - Vector3.new(oldHrp.X, 0, oldHrp.Z)) / LastStep
+							local dir = Vector3.new(vel.X / vel.magnitude, 0, vel.Z / vel.magnitude)
+	
+	
+							args[2] = args[2] + dir * (Ping / (math.pow(Ping, (1.5))) * (dir / (dir / 2)))
 							args[4] = 0
-							args[12] = args[12] - 500
+							args[12] = args[12] - (500)
 						end
+					elseif values.rage.ragebot["prediction"].Dropdown == "bad" then
+						if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then 
+							local hrp = RageTarget.Parent.HumanoidRootPart.Position 
+							local oldHrp = RageTarget.Parent.HumanoidRootPart.OldPosition.Value 
+	
+							local vel = (Vector3.new(hrp.X, 0, hrp.Z) - Vector3.new(oldHrp.X, 0, oldHrp.Z)) / LastStep 
+							local dir = Vector3.new(vel.X / vel.magnitude, 0, vel.Z / vel.magnitude) 
+	
+	
+							args[2] = args[2] + dir * (Ping / (math.pow(Ping, -1)) * (dir / (dir / 2))) 
+							args[4] = 0 
+							args[12] = args[12] - 500 
+						end 
 					end
 				end
-			end)()
+			end)
 		end
-		if (values.rage.aimbot["boost prediction"].Toggle and RageTarget ~= nil) then 
-			coroutine.wrap(function() 
-				if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then 
-					local hrp = RageTarget.Parent.HumanoidRootPart.Position 
-					local oldHrp = RageTarget.Parent.HumanoidRootPart.OldPosition.Value 
-
-					local vel = (Vec3(hrp.X, 0, hrp.Z) - Vec3(oldHrp.X, 0, oldHrp.Z)) / LastStep 
-					local dir = Vec3(vel.X / vel.magnitude, 0, vel.Z / vel.magnitude) 
-
-					 
-					args[2] = args[2] + dir * (Ping / (POW(Ping, 1.5)) * (dir / (dir / 2))) 
-					args[4] = 0 
-					args[12] = args[12] - 500 
-				end 
-			end)() 
-		end 
-		 
 		if values.visuals.world["bullet tracers"].Toggle then 
 			coroutine.wrap(function() 
 				local beam = INST("Part") 
