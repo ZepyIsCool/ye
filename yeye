@@ -4192,8 +4192,7 @@ function library:New(name)
 					Frame.BorderSizePixel = 0 
 					Frame.Size = UDIM2(0.5, 0, 1, 0) 
 
-					UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, COL3RGB(135, 25, 255)), ColorSequenceKeypoint.new(1, COL3RGB(135, 25, 255))} 
-					UIGradient.Rotation = 90 
+					UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, COL3RGB(121, 0, 78)), ColorSequenceKeypoint.new(1, COL3RGB(122, 6, 255))} 
 					UIGradient.Parent = Frame 
 
 					Value.Name = "Value" 
